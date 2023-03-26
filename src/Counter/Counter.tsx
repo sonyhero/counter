@@ -4,16 +4,19 @@ import s from './Counter.module.css'
 
 export const Counter = () => {
 
-    const [n, setN] = useState<number>(0)
+    const maxValue = 5
+    const minValue = 0
+
+    const [n, setN] = useState<number>(minValue)
 
     const onClickHandlerInc = () => setN(state => state+1)
     const onClickHandlerReset = () => setN(0)
 
-    const nClassName = (n === 5) ? s.error : s.normal
+    const nClassName = (n === maxValue) ? s.error : s.normal
 
-    const incButton = n === 5
+    const incButton = n === maxValue
 
-    const resetButton = n === 0
+    const resetButton = n === minValue
 
     return (
         <div className={s.wrap}>
@@ -21,8 +24,14 @@ export const Counter = () => {
                 <div className={nClassName}>{n}</div>
             </div>
             <div className={s.buttonWrapper}>
-                    <SuperButton className={s.inc} disabled={incButton} name={'inc'} callBack={onClickHandlerInc}/>
-                    <SuperButton className={s.reset} disabled={resetButton} name={'reset'} callBack={onClickHandlerReset}/>
+                    <SuperButton className={s.inc}
+                                 disabled={incButton}
+                                 name={'inc'}
+                                 callBack={onClickHandlerInc}/>
+                    <SuperButton className={s.reset}
+                                 disabled={resetButton}
+                                 name={'reset'}
+                                 callBack={onClickHandlerReset}/>
             </div>
         </div>
     );
