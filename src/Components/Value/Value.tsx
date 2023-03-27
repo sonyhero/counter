@@ -5,7 +5,7 @@ type DisplayType = {
     number: number
 }
 
-export const Display: React.FC<DisplayType> = (props) => {
+export const Value: React.FC<DisplayType> = (props) => {
     const {
         className,
         number
