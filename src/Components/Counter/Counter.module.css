@@ -6,19 +6,19 @@
     background-color: #202c2d;
 }
 
-.wrap {
-    display: flex;
-    flex-direction: column;
-    max-width: 1170px;
-    width: 400px;
-    height: 400px;
-    padding: 0 15px;
-    /*margin: 0 auto;*/
-    margin: 200px 500px;
-    border: 2px solid #02d0ec;
-    border-radius: 5px;
-    background-color: #202c2d;
-}
+/*.wrap {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    max-width: 1170px;*/
+/*    width: 400px;*/
+/*    height: 400px;*/
+/*    padding: 0 15px;*/
+/*    !*margin: 0 auto;*!*/
+/*    margin: 200px 500px;*/
+/*    border: 2px solid #02d0ec;*/
+/*    border-radius: 5px;*/
+/*    background-color: #202c2d;*/
+/*}*/
 
 .display {
     align-items: center;

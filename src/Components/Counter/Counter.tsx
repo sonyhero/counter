@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import SuperButton from './SuperButton';
+import SuperButton from '../Button/SuperButton';
 import s from './Counter.module.css'
-import {Display} from './Display';
+import {Value} from '../Value/Value';
 
 export const Counter = () => {
 
@@ -22,7 +22,7 @@ export const Counter = () => {
     return (
         <div className={s.wrap}>
             <div className={s.display}>
-                <Display className={finalClassName} number={number}/>
+                <Value className={finalClassName} number={number}/>
             </div>
             <div className={s.buttonWrapper}>
                     <SuperButton className={s.inc}
