@@ -1,15 +1,21 @@
 import React from 'react';
 import './App.css';
-import {Counter} from './Counter/Counter';
+import {Frame} from './Components/Frame/Frame';
+import {Counter} from './Components/Counter/Counter';
 
 function App() {
 
 
   return (
     <div className={'App'}>
-      <Counter/>
+        <Frame>
+        </Frame>
+        <Frame>
+            <Counter/>
+        </Frame>
     </div>
   );
 }
 
 export default App;
+
