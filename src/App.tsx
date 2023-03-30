@@ -5,6 +5,7 @@ import {Display} from './Components/Display/Display';
 import {Value} from './Components/Value/Value';
 import SuperButton from './Components/Button/SuperButton';
 import s from './Components/Counter.module.css'
+import {ButtonPad} from './Components/ButtonPad/ButtonPad';
 
 function App() {
 
@@ -27,13 +28,14 @@ function App() {
         <div className={'App'}>
             <Frame>
                 <Display/>
+                <ButtonPad/>
             </Frame>
             <Frame>
                 <Display>
                     <Value className={finalClassName}
                            number={number}/>
                 </Display>
-                <div className={s.buttonWrapper}>
+                <ButtonPad>
                     <SuperButton className={s.inc}
                                  disabled={incButton}
                                  name={'inc'}
@@ -42,7 +44,7 @@ function App() {
                                  disabled={resetButton}
                                  name={'reset'}
                                  callBack={onClickHandlerReset}/>
-                </div>
+                </ButtonPad>
 
             </Frame>
         </div>
