@@ -1,11 +1,7 @@
-import React, {useState} from 'react';
-import './App.css';
-import {Frame} from './Components/Frame/Frame';
-import {Display} from './Components/Display/Display';
-import {Value} from './Components/Value/Value';
-import SuperButton from './Components/Button/SuperButton';
-import s from './Components/Counter.module.css'
-import {ButtonPad} from './Components/ButtonPad/ButtonPad';
+import React, {useState} from 'react'
+import './App.css'
+import s from './Components/Counter/Counter.module.css'
+import Counter from './Components/Counter/Counter'
 
 function App() {
 
@@ -14,45 +10,26 @@ function App() {
 
     const [number, setNumber] = useState<number>(minValue)
 
-    const onClickHandlerInc = () => setNumber(state => state+1)
-    const onClickHandlerReset = () => setNumber(0)
+    const incCount = () => setNumber(state => state + 1)
+    const resetCount = () => setNumber(0)
 
     const finalClassName = (number === maxValue) ? s.error : s.normal
 
-    const incButton = number === maxValue
+    const disableIncButton = number === maxValue
 
-    const resetButton = number === minValue
+    const disableResetButton = number === minValue
 
 
     return (
         <div className={'App'}>
-            <Frame>
-                <Display>
-                </Display>
-                <ButtonPad>
-                    <SuperButton className={s.inc}
-                                 disabled={incButton}
-                                 name={'set'}
-                                 callBack={onClickHandlerInc}/>
-                </ButtonPad>
-            </Frame>
-            <Frame>
-                <Display>
-                    <Value className={finalClassName}
-                           number={number}/>
-                </Display>
-                <ButtonPad>
-                    <SuperButton className={s.inc}
-                                 disabled={incButton}
-                                 name={'inc'}
-                                 callBack={onClickHandlerInc}/>
-                    <SuperButton className={s.reset}
-                                 disabled={resetButton}
-                                 name={'reset'}
-                                 callBack={onClickHandlerReset}/>
-                </ButtonPad>
-
-            </Frame>
+            <Counter
+                finalClassName={finalClassName}
+                number={number}
+                disableIncButton={disableIncButton}
+                disableResetButton={disableResetButton}
+                incCount={incCount}
+                resetCount={resetCount}
+            />
         </div>
     );
 }
