@@ -27,8 +27,14 @@ function App() {
     return (
         <div className={'App'}>
             <Frame>
-                <Display/>
-                <ButtonPad/>
+                <Display>
+                </Display>
+                <ButtonPad>
+                    <SuperButton className={s.inc}
+                                 disabled={incButton}
+                                 name={'set'}
+                                 callBack={onClickHandlerInc}/>
+                </ButtonPad>
             </Frame>
             <Frame>
                 <Display>
@@ -51,5 +57,4 @@ function App() {
     );
 }
 
-export default App;
-
+export default App
