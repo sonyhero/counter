@@ -1,10 +1,10 @@
 import React from 'react';
+import s from './SuperButton.module.css';
 
 type PropsType = {
     name: string
-    callBack: () => void
+    callBack?: () => void
     disabled: boolean
-    className: string
 }
 
 const SuperButton: React.FC <PropsType> = (props) => {
@@ -12,7 +12,6 @@ const SuperButton: React.FC <PropsType> = (props) => {
         name,
         callBack,
         disabled,
-        className
     } = props
 
     // const onClickHandler = () => {
@@ -20,7 +19,7 @@ const SuperButton: React.FC <PropsType> = (props) => {
     // }
 
     return (
-        <button className={className} disabled={disabled} onClick={callBack}>{name}</button>
+        <button className={s.button} disabled={disabled} onClick={callBack}>{name}</button>
     );
 };
 
