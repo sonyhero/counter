@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './App.css'
 import s from './Components/Counter/Counter.module.css'
 import Counter from './Components/Counter/Counter'
@@ -10,6 +10,9 @@ function App() {
     const [minValue, setMinValue] = useState<number>(0)
 
     const [displayValue, setDisplayValue] = useState<number>(minValue)
+
+    useEffect(()=>{
+    }, [])
 
     const incCount = () => setDisplayValue(state => state + 1)
     const resetCount = () => setDisplayValue(minValue)
