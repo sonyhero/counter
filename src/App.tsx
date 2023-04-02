@@ -11,12 +11,17 @@ function App() {
 
     const [displayValue, setDisplayValue] = useState<number>(minValue)
 
+
     useEffect(()=>{
-        localStorage.setItem('minValue', JSON.stringify(minValue))
-    }, [minValue])
+        let displayValueToString = localStorage.getItem('displayValue')
+        if (displayValueToString){
+            setDisplayValue(JSON.parse(displayValueToString))
+        }
+    }, [])
+
     useEffect(()=>{
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    }, [maxValue])
+        localStorage.setItem('displayValue', JSON.stringify(displayValue))
+    }, [displayValue])
 
     const incCount = () => setDisplayValue(state => state + 1)
     const resetCount = () => setDisplayValue(minValue)
