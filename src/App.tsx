@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import './App.css'
 import s from './Components/Counter/Counter.module.css'
-import Counter from './Components/Counter/Counter'
+import {Counter} from './Components/Counter/Counter'
 import {CounterSettings} from './Components/Counter/CounterSettings';
 
-function App() {
+export const App = () => {
+
     const [maxValue, setMaxValue] = useState<number>(5)
     const [minValue, setMinValue] = useState<number>(0)
     const [displayValue, setDisplayValue] = useState<number>(minValue)
-
 
     useEffect(()=>{
         let max = localStorage.getItem('max')
@@ -28,32 +28,23 @@ function App() {
     const resetCount = () => setDisplayValue(minValue)
 
     const finalClassName = (displayValue === maxValue) ? s.error : s.normal
-
     const disableIncButton = displayValue === maxValue
-
     const disableResetButton = displayValue === minValue
 
-    const setInputMaxValue = (maxValue: number) => {
-        setMaxValue(maxValue)
-    }
-    const setInputMinValue = (minValue: number) => {
-        setMinValue(minValue)
-    }
+    // const setInputMaxValue = (maxValue: number) => setMaxValue(maxValue)
+    // const setInputMinValue = (minValue: number) => setMinValue(minValue)
 
     const setCounter = () => {
         setDisplayValue(minValue)
-        // localStorage.setItem('max', JSON.stringify(maxValue))
-        // localStorage.setItem('min', JSON.stringify(minValue))
     }
-
 
     return (
         <div className={'App'}>
             <CounterSettings
                 maxValue={maxValue}
                 minValue={minValue}
-                setInputMaxValue={setInputMaxValue}
-                setInputMinValue={setInputMinValue}
+                setInputMaxValue={setMaxValue}
+                setInputMinValue={setMinValue}
                 setCounter={setCounter}
             />
             <Counter
@@ -65,7 +56,5 @@ function App() {
                 resetCount={resetCount}
             />
         </div>
-    );
+    )
 }
-
-export default App

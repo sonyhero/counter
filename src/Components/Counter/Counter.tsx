@@ -25,7 +25,5 @@ export const Counter = (props: CounterPropsType) => {
                              disabled={props.disableResetButton}/>
             </div>
         </div>
-    );
-};
-
-export default Counter;
+    )
+}
