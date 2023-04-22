@@ -6,8 +6,8 @@ import SuperButton from '../SuperButton/SuperButton';
 type CounterSettingsType = {
     maxValue: number
     minValue: number
-    setInputMaxValue: (newValue: number) => void
-    setInputMinValue: (newValue: number) => void
+    setInputMaxValue: (maxValue: number) => void
+    setInputMinValue: (minValue: number) => void
     setCounter:()=>void
 }
 export const CounterSettings = (props: CounterSettingsType) => {

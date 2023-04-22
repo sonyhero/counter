@@ -5,23 +5,24 @@ import Counter from './Components/Counter/Counter'
 import {CounterSettings} from './Components/Counter/CounterSettings';
 
 function App() {
-
     const [maxValue, setMaxValue] = useState<number>(5)
     const [minValue, setMinValue] = useState<number>(0)
-
     const [displayValue, setDisplayValue] = useState<number>(minValue)
 
 
     useEffect(()=>{
-        let displayValueToString = localStorage.getItem('displayValue')
-        if (displayValueToString){
-            setDisplayValue(JSON.parse(displayValueToString))
-        }
+        let max = localStorage.getItem('max')
+        max && setMaxValue(JSON.parse(max))
+        let min = localStorage.getItem('min')
+        min && setMinValue(JSON.parse(min))
+
     }, [])
 
     useEffect(()=>{
-        localStorage.setItem('displayValue', JSON.stringify(displayValue))
-    }, [displayValue])
+        localStorage.setItem('max', JSON.stringify(maxValue))
+        localStorage.setItem('min', JSON.stringify(minValue))
+    }, [maxValue, minValue])
+
 
     const incCount = () => setDisplayValue(state => state + 1)
     const resetCount = () => setDisplayValue(minValue)
@@ -32,15 +33,17 @@ function App() {
 
     const disableResetButton = displayValue === minValue
 
-    const setInputMaxValue = (newValue: number) => {
-        setMaxValue(newValue)
+    const setInputMaxValue = (maxValue: number) => {
+        setMaxValue(maxValue)
     }
-    const setInputMinValue = (newValue: number) => {
-        setMinValue(newValue)
+    const setInputMinValue = (minValue: number) => {
+        setMinValue(minValue)
     }
 
     const setCounter = () => {
         setDisplayValue(minValue)
+        // localStorage.setItem('max', JSON.stringify(maxValue))
+        // localStorage.setItem('min', JSON.stringify(minValue))
     }
 
 
