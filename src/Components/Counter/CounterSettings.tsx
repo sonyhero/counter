@@ -8,7 +8,9 @@ type CounterSettingsType = {
     minValue: number
     setInputMaxValue: (maxValue: number) => void
     setInputMinValue: (minValue: number) => void
-    setCounter:()=>void
+    setCounter: () => void
+    error: string
+    setError: (error: string) => void
 }
 export const CounterSettings = (props: CounterSettingsType) => {
     return (
@@ -17,11 +19,17 @@ export const CounterSettings = (props: CounterSettingsType) => {
                 <Input
                     inputName={'max value'}
                     value={props.maxValue}
-                    setValue={props.setInputMaxValue}/>
+                    setValue={props.setInputMaxValue}
+                    error={props.error}
+                    setError={props.setError}
+                />
                 <Input
                     inputName={'min value'}
                     value={props.minValue}
-                    setValue={props.setInputMinValue}/>
+                    setValue={props.setInputMinValue}
+                    error={props.error}
+                    setError={props.setError}
+                />
 
             </div>
             <div className={s.buttonWrapper}>

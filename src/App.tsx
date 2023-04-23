@@ -9,6 +9,7 @@ export const App = () => {
     const [maxValue, setMaxValue] = useState<number>(5)
     const [minValue, setMinValue] = useState<number>(0)
     const [displayValue, setDisplayValue] = useState<number>(minValue)
+    const [error, setError] = useState<string>('')
 
     useEffect(()=>{
         let max = localStorage.getItem('max')
@@ -28,11 +29,11 @@ export const App = () => {
     const resetCount = () => setDisplayValue(minValue)
 
     const finalClassName = (displayValue === maxValue) ? s.error : s.normal
+
     const disableIncButton = displayValue === maxValue
+
     const disableResetButton = displayValue === minValue
 
-    // const setInputMaxValue = (maxValue: number) => setMaxValue(maxValue)
-    // const setInputMinValue = (minValue: number) => setMinValue(minValue)
 
     const setCounter = () => {
         setDisplayValue(minValue)
@@ -46,6 +47,8 @@ export const App = () => {
                 setInputMaxValue={setMaxValue}
                 setInputMinValue={setMinValue}
                 setCounter={setCounter}
+                error={error}
+                setError={setError}
             />
             <Counter
                 finalClassName={finalClassName}

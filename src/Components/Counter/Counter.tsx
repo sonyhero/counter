@@ -14,7 +14,9 @@ export const Counter = (props: CounterPropsType) => {
     return (
         <div className={s.wrap}>
             <div className={s.display}>
-                <div className={props.finalClassName}>{props.displayValue}</div>
+                <div className={props.finalClassName}>
+                    {props.displayValue}
+                </div>
             </div>
             <div className={s.buttonWrapper}>
                 <SuperButton name={'inc'}
