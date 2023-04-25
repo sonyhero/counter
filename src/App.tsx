@@ -12,7 +12,7 @@ export const App = () => {
     const [maxValue, setMaxValue] = useState<number>(Number(max))
     const [minValue, setMinValue] = useState<number>(Number(min))
     const [displayValue, setDisplayValue] = useState<number>(minValue)
-    // const [displayMessage, setDisplayMessage] = useState<boolean>(false)
+    const [counterMessage, setCounterMessage] = useState<string>('')
 
     const incCount = () => setDisplayValue(state => state + 1)
     const resetCount = () => setDisplayValue(minValue)
@@ -23,17 +23,22 @@ export const App = () => {
 
     const disableResetButton = displayValue === minValue
 
-    let displayMessage
+    let errorMessage
     let finalClassName
 
     if (minValue === maxValue ||
         minValue > maxValue ||
         minValue < 0
     ) {
-        displayMessage = true
+        errorMessage = true
         finalClassName = s.error
-    } else {
-        displayMessage = false
+    } else if (displayValue === maxValue
+    ) {
+        errorMessage = false
+        finalClassName = s.error
+    }
+    else {
+        errorMessage = false
         finalClassName = s.normal
     }
 
@@ -51,15 +56,18 @@ export const App = () => {
                 setInputMaxValue={setMaxValue}
                 setInputMinValue={setMinValue}
                 setCounter={setCounter}
+                errorMessage={errorMessage}
+                setCounterMessage={setCounterMessage}
             />
             <Counter
                 finalClassName={finalClassName}
                 displayValue={displayValue}
                 disableIncButton={disableIncButton}
-                disableResetButton={disableResetButton}
+                disableResetButton={ disableResetButton}
                 incCount={incCount}
                 resetCount={resetCount}
-                displayMessage={displayMessage}
+                errorMessage={errorMessage}
+                counterMessage={counterMessage}
             />
         </div>
     )

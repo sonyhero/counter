@@ -6,6 +6,7 @@ type PropsType = {
     callBack?: () => void
     disabled: boolean
     setStatus?: (status: boolean) => void
+    setCounterMessage?: (counterMessage: string) => void
 }
 
 const SuperButton: React.FC<PropsType> = (props) => {
@@ -13,12 +14,14 @@ const SuperButton: React.FC<PropsType> = (props) => {
         name,
         callBack,
         disabled,
-        setStatus
+        setStatus,
+        setCounterMessage
     } = props
 
     const onClickHandler = () => {
         setStatus?.(true)
         callBack?.()
+        setCounterMessage?.('')
     }
 
     return (

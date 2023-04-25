@@ -9,17 +9,21 @@ export type CounterPropsType = {
     disableResetButton: boolean
     incCount: () => void
     resetCount: () => void
-    displayMessage: boolean
+    errorMessage: boolean
+    counterMessage: string
 }
 export const Counter = (props: CounterPropsType) => {
+
+    let display = props.errorMessage ? 'Incorrect value!': props.displayValue
 
     return (
         <div className={s.wrap}>
             <div className={s.display}>
                 <div className={props.finalClassName}>
-                    {props.displayMessage
-                        ? 'Incorrect value!'
-                        : props.displayValue}
+                    {props.counterMessage
+                        ? props.counterMessage
+                        : display
+                    }
                 </div>
             </div>
             <div className={s.buttonWrapper}>

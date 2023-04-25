@@ -6,6 +6,8 @@ type InputProps = {
     value: number
     setValue: (newValue: number) => void
     setStatus: (status: boolean) => void
+    errorMessage: boolean
+    setCounterMessage: (setCounterMessage: string) => void
 }
 export const Input = (props: InputProps) => {
 
@@ -13,7 +15,6 @@ export const Input = (props: InputProps) => {
         const value = e.currentTarget.value
         props.setValue(Number(value))
         props.setStatus(false)
-
     }
 
     return (

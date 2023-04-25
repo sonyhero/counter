@@ -9,6 +9,8 @@ type CounterSettingsType = {
     setInputMaxValue: (maxValue: number) => void
     setInputMinValue: (minValue: number) => void
     setCounter: () => void
+    errorMessage: boolean
+    setCounterMessage: (counterMessage: string) => void
 }
 export const CounterSettings = (props: CounterSettingsType) => {
 
@@ -22,12 +24,16 @@ export const CounterSettings = (props: CounterSettingsType) => {
                     value={props.maxValue}
                     setValue={props.setInputMaxValue}
                     setStatus={setStatus}
+                    errorMessage={props.errorMessage}
+                    setCounterMessage={props.setCounterMessage}
                 />
                 <Input
                     inputName={'min value'}
                     value={props.minValue}
                     setValue={props.setInputMinValue}
                     setStatus={setStatus}
+                    errorMessage={props.errorMessage}
+                    setCounterMessage={props.setCounterMessage}
                 />
 
             </div>
@@ -36,7 +42,9 @@ export const CounterSettings = (props: CounterSettingsType) => {
                     name={'set'}
                     callBack={props.setCounter}
                     setStatus={setStatus}
-                    disabled={status}/>
+                    setCounterMessage={props.setCounterMessage}
+                    disabled={status}
+                />
             </div>
         </div>
     )
