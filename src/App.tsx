@@ -1,29 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import s from './Components/Counter/Counter.module.css'
 import {Counter} from './Components/Counter/Counter'
 import {CounterSettings} from './Components/Counter/CounterSettings';
 
 export const App = () => {
+    let max = localStorage.getItem('max') || '5'
+    let min = localStorage.getItem('min') || '0'
 
-    const [maxValue, setMaxValue] = useState<number>(5)
-    const [minValue, setMinValue] = useState<number>(0)
+
+    const [maxValue, setMaxValue] = useState<number>(Number(max))
+    const [minValue, setMinValue] = useState<number>(Number(min))
     const [displayValue, setDisplayValue] = useState<number>(minValue)
-    const [error, setError] = useState<string>('')
-
-    useEffect(()=>{
-        let max = localStorage.getItem('max')
-        max && setMaxValue(JSON.parse(max))
-        let min = localStorage.getItem('min')
-        min && setMinValue(JSON.parse(min))
-
-    }, [])
-
-    useEffect(()=>{
-        localStorage.setItem('max', JSON.stringify(maxValue))
-        localStorage.setItem('min', JSON.stringify(minValue))
-    }, [maxValue, minValue])
-
+    // const [displayMessage, setDisplayMessage] = useState<boolean>(false)
 
     const incCount = () => setDisplayValue(state => state + 1)
     const resetCount = () => setDisplayValue(minValue)
@@ -34,9 +23,21 @@ export const App = () => {
 
     const disableResetButton = displayValue === minValue
 
+    let displayMessage
+
+    if (minValue === maxValue ||
+        minValue > maxValue ||
+        minValue < 0
+    ) {
+        displayMessage = true
+    } else {
+        displayMessage = false
+    }
 
     const setCounter = () => {
         setDisplayValue(minValue)
+        localStorage.setItem('max', JSON.stringify(maxValue))
+        localStorage.setItem('min', JSON.stringify(minValue))
     }
 
     return (
@@ -47,8 +48,6 @@ export const App = () => {
                 setInputMaxValue={setMaxValue}
                 setInputMinValue={setMinValue}
                 setCounter={setCounter}
-                error={error}
-                setError={setError}
             />
             <Counter
                 finalClassName={finalClassName}
@@ -57,6 +56,7 @@ export const App = () => {
                 disableResetButton={disableResetButton}
                 incCount={incCount}
                 resetCount={resetCount}
+                displayMessage={displayMessage}
             />
         </div>
     )

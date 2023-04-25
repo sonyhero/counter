@@ -5,21 +5,24 @@ type PropsType = {
     name: string
     callBack?: () => void
     disabled: boolean
+    setStatus?: (status: boolean) => void
 }
 
-const SuperButton: React.FC <PropsType> = (props) => {
+const SuperButton: React.FC<PropsType> = (props) => {
     const {
         name,
         callBack,
         disabled,
+        setStatus
     } = props
 
-    // const onClickHandler = () => {
-    //     callBack()
-    // }
+    const onClickHandler = () => {
+        setStatus?.(true)
+        callBack?.()
+    }
 
     return (
-        <button className={s.button} disabled={disabled} onClick={callBack}>{name}</button>
+        <button className={s.button} disabled={disabled} onClick={onClickHandler}>{name}</button>
     );
 };
 

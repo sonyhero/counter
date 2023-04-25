@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './Counter.module.css';
 import {Input} from '../../Input/Input';
 import SuperButton from '../SuperButton/SuperButton';
@@ -9,10 +9,11 @@ type CounterSettingsType = {
     setInputMaxValue: (maxValue: number) => void
     setInputMinValue: (minValue: number) => void
     setCounter: () => void
-    error: string
-    setError: (error: string) => void
 }
 export const CounterSettings = (props: CounterSettingsType) => {
+
+    const [status, setStatus] = useState<boolean>(true)
+
     return (
         <div className={s.wrap}>
             <div className={s.display}>
@@ -20,15 +21,13 @@ export const CounterSettings = (props: CounterSettingsType) => {
                     inputName={'max value'}
                     value={props.maxValue}
                     setValue={props.setInputMaxValue}
-                    error={props.error}
-                    setError={props.setError}
+                    setStatus={setStatus}
                 />
                 <Input
                     inputName={'min value'}
                     value={props.minValue}
                     setValue={props.setInputMinValue}
-                    error={props.error}
-                    setError={props.setError}
+                    setStatus={setStatus}
                 />
 
             </div>
@@ -36,7 +35,8 @@ export const CounterSettings = (props: CounterSettingsType) => {
                 <SuperButton
                     name={'set'}
                     callBack={props.setCounter}
-                    disabled={false}/>
+                    setStatus={setStatus}
+                    disabled={status}/>
             </div>
         </div>
     )
