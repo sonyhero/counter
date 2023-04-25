@@ -9,8 +9,7 @@
 .error {
     display: flex;
     justify-content: center;
-    padding: 0 15px;
-    margin: 60px auto;
+    padding-top: 60px;
     color: red;
     font-size: 1.3rem;
 }
@@ -18,8 +17,7 @@
 .normal {
     display: flex;
     justify-content: center;
-    padding: 0 15px;
-    margin: 60px auto;
+    padding-top: 60px;
     color: #02d0ec;
 }
 

@@ -17,21 +17,24 @@ export const App = () => {
     const incCount = () => setDisplayValue(state => state + 1)
     const resetCount = () => setDisplayValue(minValue)
 
-    const finalClassName = (displayValue === maxValue) ? s.error : s.normal
+    // const finalClassName = (displayValue === maxValue) ? s.error : s.normal
 
     const disableIncButton = displayValue === maxValue
 
     const disableResetButton = displayValue === minValue
 
     let displayMessage
+    let finalClassName
 
     if (minValue === maxValue ||
         minValue > maxValue ||
         minValue < 0
     ) {
         displayMessage = true
+        finalClassName = s.error
     } else {
         displayMessage = false
+        finalClassName = s.normal
     }
 
     const setCounter = () => {
