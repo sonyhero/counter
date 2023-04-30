@@ -1,74 +1,67 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import './App.css'
-import s from './Components/Counter/Counter.module.css'
 import {Counter} from './Components/Counter/Counter'
 import {CounterSettings} from './Components/Counter/CounterSettings';
+import {useDispatch} from 'react-redux';
+import {startLocalStorageAC} from './redux-store/counterReducer';
+import {useAppSelector} from './hooks/hooks';
 
 export const App = () => {
-    let max = localStorage.getItem('max') || '5'
-    let min = localStorage.getItem('min') || '0'
 
+    const dispatch = useDispatch()
 
-    const [maxValue, setMaxValue] = useState<number>(Number(max))
-    const [minValue, setMinValue] = useState<number>(Number(min))
-    const [displayValue, setDisplayValue] = useState<number>(minValue)
-    const [counterMessage, setCounterMessage] = useState<string>('')
+    useEffect(() => {
+        const min = localStorage.getItem('min') || '0'
+        const max = localStorage.getItem('max') || '5'
+        dispatch(startLocalStorageAC(Number(min), Number(max)))
+    }, [])
 
-    const incCount = () => setDisplayValue(state => state + 1)
-    const resetCount = () => setDisplayValue(minValue)
+    let error = false
+    let stopInc = false
 
-    // const finalClassName = (displayValue === maxValue) ? s.error : s.normal
+    const counter = useAppSelector(state => state.counter)
 
-    const disableIncButton = displayValue === maxValue
-
-    const disableResetButton = displayValue === minValue
-
-    let errorMessage
-    let finalClassName
-
-    if (minValue === maxValue ||
-        minValue > maxValue ||
-        minValue < 0
+    if (counter.minValue >= counter.maxValue ||
+    counter.minValue < 0
     ) {
-        errorMessage = true
-        finalClassName = s.error
-    } else if (displayValue === maxValue
-    ) {
-        errorMessage = false
-        finalClassName = s.error
+        error = true
     }
-    else {
-        errorMessage = false
-        finalClassName = s.normal
-    }
-
-    const setCounter = () => {
-        setDisplayValue(minValue)
-        localStorage.setItem('max', JSON.stringify(maxValue))
-        localStorage.setItem('min', JSON.stringify(minValue))
+    if ( counter.displayValue >= counter.maxValue) {
+        stopInc = true
     }
 
     return (
         <div className={'App'}>
-            <CounterSettings
-                maxValue={maxValue}
-                minValue={minValue}
-                setInputMaxValue={setMaxValue}
-                setInputMinValue={setMinValue}
-                setCounter={setCounter}
-                errorMessage={errorMessage}
-                setCounterMessage={setCounterMessage}
-            />
-            <Counter
-                finalClassName={finalClassName}
-                displayValue={displayValue}
-                disableIncButton={disableIncButton}
-                disableResetButton={ disableResetButton}
-                incCount={incCount}
-                resetCount={resetCount}
-                errorMessage={errorMessage}
-                counterMessage={counterMessage}
-            />
+            {counter.controlOpen
+            ? <CounterSettings
+                    minValue={counter.minValue}
+                    maxValue={counter.maxValue}
+                    error={error}
+                    controlOpen={counter.controlOpen}
+                />
+            : <Counter
+                    displayValue={counter.displayValue}
+                    error={error}
+                    stopInc={stopInc}
+                    controlOpen={counter.controlOpen}
+                />
+            }
+            {/* <CounterSettings*/}
+            {/*        minValue={counter.minValue}*/}
+            {/*        maxValue={counter.maxValue}*/}
+            {/*        // setInputMaxValue={setMaxValue}*/}
+            {/*        // setInputMinValue={setMinValue}*/}
+            {/*        // setCounter={setCounter}*/}
+            {/*        error={error}*/}
+            {/*        controlOpen={counter.controlOpen}*/}
+            {/*        // setCounterMessage={setCounterMessage}*/}
+            {/*    />*/}
+            {/*     <Counter*/}
+            {/*        displayValue={counter.displayValue}*/}
+            {/*        error={error}*/}
+            {/*        stopInc={stopInc}*/}
+            {/*        controlOpen={counter.controlOpen}*/}
+            {/*    />*/}
         </div>
     )
 }

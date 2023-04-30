@@ -1,39 +1,52 @@
-import React from 'react';
+import React, {memo} from 'react';
 import s from './Counter.module.css'
 import SuperButton from '../SuperButton/SuperButton';
+import {useDispatch} from 'react-redux';
+import {controlSetAC, incrementAC, resetAC} from '../../redux-store/counterReducer';
 
 export type CounterPropsType = {
-    finalClassName: string
     displayValue: number
-    disableIncButton: boolean
-    disableResetButton: boolean
-    incCount: () => void
-    resetCount: () => void
-    errorMessage: boolean
-    counterMessage: string
+    error: boolean
+    stopInc: boolean
+    controlOpen: boolean
 }
-export const Counter = (props: CounterPropsType) => {
 
-    let display = props.errorMessage ? 'Incorrect value!': props.displayValue
+export const Counter: React.FC<CounterPropsType> = memo((props) => {
+
+    const {
+        displayValue,
+        error,
+        stopInc,
+        controlOpen
+    } = props
+
+    const dispatch = useDispatch()
+    // let display = props.errorMessage ? 'Incorrect value!' : props.displayValue
+
+    const increment = () => dispatch(incrementAC())
+    const reset = () => dispatch(resetAC())
+
+    const controlSet = () => dispatch(controlSetAC(true))
+
+    const finalClassName = stopInc ? s.error : s.normal
 
     return (
         <div className={s.wrap}>
             <div className={s.display}>
-                <div className={props.finalClassName}>
-                    {props.counterMessage
-                        ? props.counterMessage
-                        : display
-                    }
+                <div className={finalClassName}>
+                    {displayValue}
                 </div>
             </div>
             <div className={s.buttonWrapper}>
                 <SuperButton name={'inc'}
-                             callBack={props.incCount}
-                             disabled={props.disableIncButton}/>
+                             callBack={increment}
+                             disabled={error || stopInc}/>
                 <SuperButton name={'reset'}
-                             callBack={props.resetCount}
-                             disabled={props.disableResetButton}/>
+                             callBack={reset}
+                             disabled={error}/>
+                <SuperButton name={'set'}
+                             callBack={controlSet}/>
             </div>
         </div>
     )
-}
+})

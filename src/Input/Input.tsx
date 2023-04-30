@@ -4,28 +4,32 @@ import s from './Input.module.css';
 type InputProps = {
     inputName: string
     value: number
-    setValue: (newValue: number) => void
-    setStatus: (status: boolean) => void
-    errorMessage: boolean
-    setCounterMessage: (setCounterMessage: string) => void
+    onChange: (newValue: number) => void
+    error: boolean
 }
-export const Input = (props: InputProps) => {
+export const Input: React.FC<InputProps> = (props) => {
+    const {inputName,
+        value,
+        onChange,
+        error,
+    } = props
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value
-        props.setValue(Number(value))
-        props.setStatus(false)
+        const newValue = e.currentTarget.value
+        onChange(Number(newValue))
     }
+
+    const finalClass = error ? s.settingsInputError : s.settingsInput
 
     return (
         <div>
             <div className={s.settingsSpan}>
-                {props.inputName}:
+                {inputName}:
             </div>
             <input
-                className={s.settingsInput}
+                className={finalClass}
                 type={'number'}
-                value={props.value}
+                value={value}
                 onChange={onChangeHandler}
             />
         </div>

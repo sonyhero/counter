@@ -1,51 +1,64 @@
-import React, {useState} from 'react';
+import React, { memo} from 'react';
 import s from './Counter.module.css';
 import {Input} from '../../Input/Input';
 import SuperButton from '../SuperButton/SuperButton';
+import {changeMaxValueAC, changeMinValueAC, controlSetAC, setValuesAC} from '../../redux-store/counterReducer';
+import {useDispatch} from 'react-redux';
 
 type CounterSettingsType = {
-    maxValue: number
     minValue: number
-    setInputMaxValue: (maxValue: number) => void
-    setInputMinValue: (minValue: number) => void
-    setCounter: () => void
-    errorMessage: boolean
-    setCounterMessage: (counterMessage: string) => void
+    maxValue: number
+    error: boolean
+    controlOpen: boolean
 }
-export const CounterSettings = (props: CounterSettingsType) => {
+export const CounterSettings: React.FC<CounterSettingsType> = memo((props) => {
+    const {
+        minValue,
+        maxValue,
+        error,
+        controlOpen
+    } = props
 
-    const [status, setStatus] = useState<boolean>(true)
+    const dispatch = useDispatch()
+
+    const setValues = () => {
+        localStorage.setItem('max', JSON.stringify(maxValue))
+        localStorage.setItem('min', JSON.stringify(minValue))
+        dispatch(setValuesAC(minValue))
+        dispatch(controlSetAC(!controlOpen))
+    }
+
+    const changeMaxValue = (newValue: number) => {
+        dispatch(changeMaxValueAC(newValue))
+    }
+    const changeMinValue = (newValue: number) => {
+        dispatch(changeMinValueAC(newValue))
+    }
 
     return (
         <div className={s.wrap}>
             <div className={s.display}>
                 <Input
                     inputName={'max value'}
-                    value={props.maxValue}
-                    setValue={props.setInputMaxValue}
-                    setStatus={setStatus}
-                    errorMessage={props.errorMessage}
-                    setCounterMessage={props.setCounterMessage}
+                    value={maxValue}
+                    onChange={changeMaxValue}
+                    error={error}
                 />
                 <Input
                     inputName={'min value'}
-                    value={props.minValue}
-                    setValue={props.setInputMinValue}
-                    setStatus={setStatus}
-                    errorMessage={props.errorMessage}
-                    setCounterMessage={props.setCounterMessage}
+                    value={minValue}
+                    onChange={changeMinValue}
+                    error={error}
                 />
 
             </div>
             <div className={s.buttonWrapper}>
                 <SuperButton
                     name={'set'}
-                    callBack={props.setCounter}
-                    setStatus={setStatus}
-                    setCounterMessage={props.setCounterMessage}
-                    disabled={status}
+                    callBack={setValues}
+                    disabled={error}
                 />
             </div>
         </div>
     )
-}
+})
