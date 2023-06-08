@@ -37,17 +37,15 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
-type ActionsType =
-    StartLocalStorageACType |
-    SetValuesACType |
-    ChangeMaxValueAC |
-    ChangeMinValueAC |
-    IncrementACType |
-    ResetACType |
-    ControlSetACType
+export type ActionsType =
+    ReturnType<typeof startLocalStorageAC> |
+    ReturnType<typeof setValuesAC> |
+    ReturnType<typeof changeMaxValueAC> |
+    ReturnType<typeof changeMinValueAC> |
+    ReturnType<typeof incrementAC> |
+    ReturnType<typeof resetAC> |
+    ReturnType<typeof controlSetAC>
 
-
-type StartLocalStorageACType = ReturnType<typeof startLocalStorageAC>
 export const startLocalStorageAC = (minValue: number, maxValue: number) => {
     return {
         type: 'START_LOCAL_STORAGE',
@@ -58,7 +56,6 @@ export const startLocalStorageAC = (minValue: number, maxValue: number) => {
     } as const
 }
 
-type SetValuesACType = ReturnType<typeof setValuesAC>
 export const setValuesAC = (minValue: number) => {
     return {
         type: 'SET_VALUES',
@@ -68,7 +65,6 @@ export const setValuesAC = (minValue: number) => {
     } as const
 }
 
-type ChangeMaxValueAC = ReturnType<typeof changeMaxValueAC>
 export const changeMaxValueAC = (newValue: number) => {
     return {
         type: 'CHANGE_MAX_VALUE',
@@ -78,7 +74,6 @@ export const changeMaxValueAC = (newValue: number) => {
     } as const
 }
 
-type ChangeMinValueAC = ReturnType<typeof changeMinValueAC>
 export const changeMinValueAC = (newValue: number) => {
     return {
         type: 'CHANGE_MIN_VALUE',
@@ -88,23 +83,20 @@ export const changeMinValueAC = (newValue: number) => {
     } as const
 }
 
-type IncrementACType = ReturnType<typeof incrementAC>
 export const incrementAC = () => {
     return {
         type: 'INCREMENT',
     } as const
 }
 
-type ResetACType = ReturnType<typeof resetAC>
 export const resetAC = () => {
     return {
         type: 'RESET',
     } as const
 }
 
-type ControlSetACType = ReturnType<typeof controlSetAC>
 export const controlSetAC = (controlOpen: boolean) => {
-    return{
+    return {
         type: 'CONTROL_SET',
         payload: {
             controlOpen

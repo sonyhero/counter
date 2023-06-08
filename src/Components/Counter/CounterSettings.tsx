@@ -22,10 +22,11 @@ export const CounterSettings: React.FC<CounterSettingsType> = memo((props) => {
     const dispatch = useDispatch()
 
     const setValues = () => {
-        localStorage.setItem('max', JSON.stringify(maxValue))
-        localStorage.setItem('min', JSON.stringify(minValue))
+        // localStorage.setItem('max', JSON.stringify(maxValue))
+        // localStorage.setItem('min', JSON.stringify(minValue))
         dispatch(setValuesAC(minValue))
         dispatch(controlSetAC(!controlOpen))
+        console.log(minValue)
     }
 
     const changeMaxValue = (newValue: number) => {
